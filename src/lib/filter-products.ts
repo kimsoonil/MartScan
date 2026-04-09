@@ -1,4 +1,8 @@
+import type { CatalogSection } from "@/lib/catalog-section";
+import { filterProductsByCatalogSection } from "@/lib/catalog-section";
 import type { LeafletProduct, MartId, ProductCategory } from "@/types/leaflet";
+
+import { effectiveWonPer100g } from "./unit-price-helpers";
 
 export type DealFilterParams = {
   /** 본문 등에 `할인` 글자가 포함된 상품만 */
@@ -26,17 +30,38 @@ export function parseSearchFromParams(q: string | undefined): string {
   return q.trim().slice(0, SEARCH_QUERY_MAX_LEN);
 }
 
+export type CatalogSort =
+  | "default"
+  | "price_asc"
+  | "price_desc"
+  | "unit_asc"
+  | "unit_desc"
+  | "discount_desc";
+
+export function parseCatalogSort(raw: string | undefined): CatalogSort {
+  const s = raw?.toLowerCase();
+  if (s === "price_asc") return "price_asc";
+  if (s === "price_desc") return "price_desc";
+  if (s === "unit_asc") return "unit_asc";
+  if (s === "unit_desc") return "unit_desc";
+  if (s === "discount_desc") return "discount_desc";
+  return "default";
+}
+
 export type CatalogQuery = {
   mart: MartId;
   category: "all" | ProductCategory;
   deal: DealFilterParams;
   /** `parseSearchFromParams`와 동일 규칙의 문자열; 빈 문자열이면 URL·필터에서 제외 */
   search: string;
+  section: CatalogSection;
+  sort: CatalogSort;
 };
 
 export function catalogPath(query: CatalogQuery): string {
   const p = new URLSearchParams();
   if (query.mart !== "emart") p.set("mart", query.mart);
+  if (query.section !== "all") p.set("sec", query.section);
   if (query.category !== "all") p.set("cat", query.category);
   if (query.deal.discountKeyword === "only") {
     p.set("disc", "1");
@@ -44,6 +69,7 @@ export function catalogPath(query: CatalogQuery): string {
   if (query.deal.promo === "bogo") p.set("p", "bogo");
   const qTrim = query.search.trim().slice(0, SEARCH_QUERY_MAX_LEN);
   if (qTrim) p.set("q", qTrim);
+  if (query.sort !== "default") p.set("sort", query.sort);
   const qs = p.toString();
   return qs ? `/?${qs}` : "/";
 }
@@ -105,6 +131,7 @@ export type FilterParams = {
   deal: DealFilterParams;
   /** 공백으로 구분된 토큰은 모두(AND) 이름·상세·행사 문구에 부분 일치 */
   search: string;
+  section: CatalogSection;
 };
 
 function searchTokens(raw: string): string[] {
@@ -125,9 +152,9 @@ function productMatchesSearch(p: LeafletProduct, rawSearch: string): boolean {
 
 export function filterLeafletProducts(
   products: LeafletProduct[],
-  { category, deal, search }: FilterParams,
+  { category, deal, search, section }: FilterParams,
 ): LeafletProduct[] {
-  let out = products;
+  let out = filterProductsByCatalogSection(products, section);
   if (category !== "all") {
     out = out.filter((p) => p.category === category);
   }
@@ -174,6 +201,58 @@ export function sortDealsFirst(products: LeafletProduct[]): LeafletProduct[] {
 }
 
 function unitScore(p: LeafletProduct): number {
-  if (p.wonPer100g != null) return p.wonPer100g;
+  const u = effectiveWonPer100g(p);
+  if (u != null) return u;
   return (p.saleWon ?? p.originalWon ?? 999999999) * 0.001;
+}
+
+function salePriceWon(p: LeafletProduct): number | null {
+  return p.saleWon ?? p.originalWon ?? null;
+}
+
+function discountRatio(p: LeafletProduct): number | null {
+  if (p.originalWon == null || p.saleWon == null || p.originalWon <= 0) return null;
+  if (p.originalWon <= p.saleWon) return null;
+  return (p.originalWon - p.saleWon) / p.originalWon;
+}
+
+/** 필터된 목록에 정렬 적용. `default`는 단가 우선 추천 정렬 */
+export function applyCatalogSort(
+  products: LeafletProduct[],
+  sort: CatalogSort,
+): LeafletProduct[] {
+  if (sort === "default") return sortDealsFirst(products);
+  const arr = [...products];
+  switch (sort) {
+    case "price_asc":
+      return arr.sort(
+        (a, b) =>
+          (salePriceWon(a) ?? Number.POSITIVE_INFINITY) -
+          (salePriceWon(b) ?? Number.POSITIVE_INFINITY),
+      );
+    case "price_desc":
+      return arr.sort(
+        (a, b) => (salePriceWon(b) ?? -1) - (salePriceWon(a) ?? -1),
+      );
+    case "unit_asc":
+      return arr.sort((a, b) => {
+        const ua = effectiveWonPer100g(a);
+        const ub = effectiveWonPer100g(b);
+        return (ua ?? 1e12) - (ub ?? 1e12);
+      });
+    case "unit_desc":
+      return arr.sort((a, b) => {
+        const ua = effectiveWonPer100g(a);
+        const ub = effectiveWonPer100g(b);
+        return (ub ?? -1) - (ua ?? -1);
+      });
+    case "discount_desc":
+      return arr.sort((a, b) => {
+        const da = discountRatio(a) ?? -1;
+        const db = discountRatio(b) ?? -1;
+        return db - da;
+      });
+    default:
+      return sortDealsFirst(products);
+  }
 }

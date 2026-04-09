@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "refresh-fallback": "node scripts/refresh-fallback.mjs",
-    "refresh-homeplus-fallback": "tsx scripts/refresh-homeplus-fallback.ts"
+    "refresh-homeplus-fallback": "tsx scripts/refresh-homeplus-fallback.ts",
+    "seed-unit-price-history": "node scripts/seed-unit-price-history.mjs"
   },
   "dependencies": {
     "cheerio": "^1.2.0",

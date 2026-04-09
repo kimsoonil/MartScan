@@ -1,0 +1,33 @@
+{
+  "updatedAt": "2026-04-09T01:44:59.551Z",
+  "note": "minByKey: 마트|카테고리|정규화상품명 → 관측된 최소 100g당 원. seed 스크립트로 갱신.",
+  "minByKey": {
+    "emart|meat_fish|우리집맛있는식탁달링다운와규윗등심살100g냉장호주산소": 4980,
+    "emart|meat_fish|양념안창살소불고기600g원산지별도표기조기품절가능": 3330,
+    "emart|produce|halos만다린14kg봉미국산조기품절가능": 641,
+    "emart|meat_fish|꽃게100g중해동국산조기품절가능": 990,
+    "emart|produce|캘리포니아호두500g봉미국산조기품절가능": 1596,
+    "emart|meat_fish|간귀현상욱셰프의삼겹살쇼가야끼700g원산지별도표기조기": 1569,
+    "emart|meat_fish|cj양념듬뿍닭강정270g": 3696,
+    "emart|dairy|보꼬네모짜렐라슈레드치즈240g": 2200,
+    "emart|meat_fish|냉동대림버거4종각오리지널150g치즈160g딥치즈15": 3125,
+    "emart|meat_fish|개성왕만두김치왕만두350g각": 1851,
+    "emart|other|대림부어스트콤비네이션385g": 1943,
+    "emart|beverage_snack|비카인드미니다크초콜릿2종각씨쏠트견과류바240g아몬드": 5667,
+    "emart|produce|피코크정선생곤드레나물밥5입1110g": 8164,
+    "emart|quick_meal|피코크new의정부식부대찌개138kg": 578,
+    "emart|meat_fish|사조참치100g5종살코기고추야채불닭불닭마요": 6480,
+    "emart|quick_meal|피코크중화계란볶음밥840g4입": 950,
+    "emart|other|페리오토탈7메디컬허브치약각라임바질100g3": 12900,
+    "emart|other|한입베이킹소다과탄산소다구연산각4kg2kg2kg": 373,
+    "homeplus|meat_fish|미국산초이스부채살또는프라임척아이롤": 4600,
+    "homeplus|meat_fish|한돈와이비디황금돼지삼겹살또는목심": 4400,
+    "homeplus|meat_fish|흰다리새우특": 3980,
+    "homeplus|meat_fish|품애복슬라이스치킨또는오리이종": 2748,
+    "homeplus|other|청도아이스홍시6입": 1664,
+    "homeplus|other|스팸25라이트": 4990,
+    "homeplus|other|심플러스쁘띠초코케이크10입": 1383,
+    "homeplus|dairy|후디스그릭요거트이종": 848,
+    "homeplus|meat_fish|심플러스핸드카드삼종": 57
+  }
+}
