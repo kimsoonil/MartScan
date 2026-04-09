@@ -1,0 +1,687 @@
+{
+  "fetchedAt": "2026-04-07T04:21:59.250Z",
+  "products": [
+    {
+      "id": "7e97ab25be27d536",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "우리 집 맛있는 식탁 달링다운 와규 윗등심살 (100g/냉장)(호주산 소고기) ※조기품절 가능 ※MB8+ 가격상이",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 4980,
+      "detailTail": "4,980원 ※이미지컷입니다",
+      "promoHighlights": [],
+      "category": "meat_fish",
+      "grams": 100,
+      "wonPer100g": 4980
+    },
+    {
+      "id": "9e6f6540c7935e0e",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "양념 안창살 소불고기 (600g)(원산지:별도표기) ※ 조기품절 가능",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 19980,
+      "detailTail": "19,980원 2팩 이상 구매 시 50% 할인 ※이미지컷입니다",
+      "promoHighlights": [
+        "2팩 이상 구매 시 50% 할인"
+      ],
+      "category": "meat_fish",
+      "grams": 600,
+      "wonPer100g": 3330
+    },
+    {
+      "id": "ab928e081d2bce7c",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "양장피/팔보채/고추잡채와 꽃빵 WITH 이금기 (팩)(각) ※조기품절 가능",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "originalWon": 9980,
+      "saleWon": 7984,
+      "detailTail": "9,980원->7,984원 신세계포인트 적립 시 20% 할인 ※이미지컷입니다",
+      "promoHighlights": [
+        "신세계포인트 적립 시 20% 할인"
+      ],
+      "category": "other"
+    },
+    {
+      "id": "46f188a59f960c12",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "브랜드 돈 앞다리/뒷다리/갈비(국내산) ※조기품절 가능",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "신세계포인트 적립 시 20% 할인 ※이미지컷입니다",
+      "promoHighlights": [
+        "신세계포인트 적립 시 20% 할인"
+      ],
+      "category": "meat_fish"
+    },
+    {
+      "id": "cccc0ccde11b47f2",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "HALOS 만다린 (1.4kg/봉)(미국산) ※조기품절 가능",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "originalWon": 9980,
+      "saleWon": 8980,
+      "detailTail": "9,980원->8,980원 신세계포인트 적립 시 1천원 할인 ※이미지컷입니다",
+      "promoHighlights": [
+        "신세계포인트 적립 시 1천원 할인"
+      ],
+      "category": "produce",
+      "grams": 1400,
+      "wonPer100g": 641
+    },
+    {
+      "id": "ea1098a2f4af2467",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "뉴질랜드 미니 단호박 (통)(뉴질랜드산) ※조기품절 가능",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 1980,
+      "detailTail": "1,980원 ※이미지컷입니다",
+      "promoHighlights": [],
+      "category": "produce"
+    },
+    {
+      "id": "eaa7d17e6839af2d",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "꽃게 (100g/중/해동)(국산) ※조기품절 가능",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 990,
+      "detailTail": "0,990원 ※이미지컷입니다",
+      "promoHighlights": [],
+      "category": "meat_fish",
+      "grams": 100,
+      "wonPer100g": 990
+    },
+    {
+      "id": "43ee9dfaa40c184e",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "미나리 골뱅이 무침 (팩)(원산지:별도표기) ※조기품절 가능",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "originalWon": 19980,
+      "saleWon": 15980,
+      "detailTail": "19,980원->15,980원 신세계포인트 적립 시 4천원 할인 ※이미지컷입니다",
+      "promoHighlights": [
+        "신세계포인트 적립 시 4천원 할인"
+      ],
+      "category": "meat_fish"
+    },
+    {
+      "id": "9aa0b71d606e6cf5",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "캘리포니아 호두 (500g/봉)(미국산) ※조기품절 가능",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "originalWon": 10980,
+      "saleWon": 7980,
+      "detailTail": "10,980원->7,980원 신세계포인트 적립 시 3천원 할인 ※이미지컷입니다",
+      "promoHighlights": [
+        "신세계포인트 적립 시 3천원 할인"
+      ],
+      "category": "produce",
+      "grams": 500,
+      "wonPer100g": 1596
+    },
+    {
+      "id": "0f8b21f4fc444254",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "간귀 현상욱 셰프의 삼겹살 쇼가야끼 (700g)(원산지:별도표기) ※조기품절 가능",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "originalWon": 14980,
+      "saleWon": 10980,
+      "detailTail": "14,980원->10,980원 신세계포인트 적립 시 4천원 할인 ※이미지컷입니다",
+      "promoHighlights": [
+        "신세계포인트 적립 시 4천원 할인"
+      ],
+      "category": "meat_fish",
+      "grams": 700,
+      "wonPer100g": 1569
+    },
+    {
+      "id": "0d15edc0443b3bc2",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "오징어 (특대/해동/마리)(원양산) ※조기품절 가능",
+      "periodLabel": "4.1(수) - 4.8(수)",
+      "originalWon": 6600,
+      "saleWon": 5280,
+      "detailTail": "6,600원->5,280원 신세계포인트 적립 시 20% 할인 ※이미지컷입니다",
+      "promoHighlights": [
+        "신세계포인트 적립 시 20% 할인"
+      ],
+      "category": "meat_fish"
+    },
+    {
+      "id": "4b7acdeb8cc9bf6f",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "국산 새우 (대/해동, 16마리) ※조기품절 가능",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 9440,
+      "detailTail": "9,440원 ※이미지컷입니다",
+      "promoHighlights": [],
+      "category": "meat_fish"
+    },
+    {
+      "id": "6b6f65872b8096b4",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "CJ 양념듬뿍 닭강정 (270g)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 9980,
+      "detailTail": "9,980원 2개 이상 구매 시 50% 할인",
+      "promoHighlights": [
+        "2개 이상 구매 시 50% 할인"
+      ],
+      "category": "meat_fish",
+      "grams": 270,
+      "wonPer100g": 3696
+    },
+    {
+      "id": "137d22c60d9ac143",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "하림 맥시칸치킨 8종(각)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 8780,
+      "detailTail": "8,780원 2개 이상 구매 시 각 1천원 할인 ※교차구매 가능",
+      "promoHighlights": [
+        "2개 이상 구매 시 각 1천원 할인"
+      ],
+      "category": "meat_fish"
+    },
+    {
+      "id": "9247f69efa646379",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "오뚜기 용기 12종 (진라면 용기/열라면 용기 외)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "4개 이상 구매 시 20% 할인 ※교차구매 가능",
+      "promoHighlights": [
+        "4개 이상 구매 시 20% 할인"
+      ],
+      "category": "quick_meal"
+    },
+    {
+      "id": "77cd0a2b896e2312",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "보꼬네 모짜렐라 슈레드 치즈 (240g)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 5280,
+      "detailTail": "5,280원",
+      "promoHighlights": [],
+      "category": "dairy",
+      "grams": 240,
+      "wonPer100g": 2200
+    },
+    {
+      "id": "d84a4a6c39414843",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "풀무원 다논 요거톡 4종(각)(초코필로우 124g×2/초코그래놀라 129g×2/스타볼 132g×2/그릭콩포트블루베리 140g×2)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "2,980~4,480원 2입 기획",
+      "promoHighlights": [],
+      "category": "produce",
+      "grams": 124
+    },
+    {
+      "id": "eb0994e7fbb225e3",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "냉동 대림 버거 4종 (각)(오리지널 150g·치즈 160g/딥치즈 155g·고로케 160g)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 5000,
+      "detailTail": "2,980/3,480원 3개 골라담기 5,000원",
+      "promoHighlights": [
+        "3개 골라담기 5,000원"
+      ],
+      "category": "meat_fish",
+      "grams": 160,
+      "wonPer100g": 3125
+    },
+    {
+      "id": "11fd84437b2cebdd",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "개성 왕만두/김치왕만두 (350g)(각)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 6480,
+      "detailTail": "6,480원 2개 이상 구매 시 50% 할인 ※교차구매 가능",
+      "promoHighlights": [
+        "2개 이상 구매 시 50% 할인"
+      ],
+      "category": "meat_fish",
+      "grams": 350,
+      "wonPer100g": 1851
+    },
+    {
+      "id": "60b623faddbacd9d",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "대림 부어스트 콤비네이션 (385g)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 7480,
+      "detailTail": "7,480원 1+1",
+      "promoHighlights": [],
+      "category": "other",
+      "grams": 385,
+      "wonPer100g": 1943
+    },
+    {
+      "id": "a437a1faed0e2124",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "펩시 제로 라임향 (310ml×12입)+스포츠 보틀기획 ※조기품절 가능",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 9980,
+      "detailTail": "9,980원",
+      "promoHighlights": [],
+      "category": "beverage_snack"
+    },
+    {
+      "id": "ac0aed4f3dc83ee7",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "비카인드 미니 다크초콜릿 2종 (각)(씨쏠트 견과류바 240g/아몬드 단백질바 234g)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 13600,
+      "detailTail": "13,600원 2개 이상 구매 시 50% 할인 ※교차구매 가능",
+      "promoHighlights": [
+        "2개 이상 구매 시 50% 할인"
+      ],
+      "category": "beverage_snack",
+      "grams": 240,
+      "wonPer100g": 5667
+    },
+    {
+      "id": "d1c3d80e65690ae0",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "피코크 정선 생곤드레나물밥 (5입, 1,110g)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "originalWon": 11980,
+      "saleWon": 8980,
+      "detailTail": "11,980원->8,980원 신세계포인트 적립 시 3천원 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 3천원 할인"
+      ],
+      "category": "produce",
+      "grams": 110,
+      "wonPer100g": 8164
+    },
+    {
+      "id": "6f620367ccc09937",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "피코크 볶음안주 3종 (탱글한 매콤 쭈꾸미 볶음 400g/통통한 매콤 낙지 볶음 400g/부산식 꼼장어 볶음 350g)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "10,980/10,980/12,980 8,980/8,980/10,980원 신세계포인트 적립 시 2천원 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 2천원 할인"
+      ],
+      "category": "meat_fish",
+      "grams": 400
+    },
+    {
+      "id": "2712b5f4eec8052e",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "피코크 New 의정부식 부대찌개 (1.38kg)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "originalWon": 9980,
+      "saleWon": 7980,
+      "detailTail": "9,980원->7,980원 신세계포인트 적립 시 2천원 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 2천원 할인"
+      ],
+      "category": "quick_meal",
+      "grams": 1380,
+      "wonPer100g": 578
+    },
+    {
+      "id": "3d3568c08884ff95",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "팁코 발렌시아 오렌지/레드 그레이프 (1L)(각)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 6480,
+      "detailTail": "6,480원 1+1 ※교차구매 가능",
+      "promoHighlights": [],
+      "category": "produce"
+    },
+    {
+      "id": "16154a257beeb0b1",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "맥심 모카골드 제로 슈거 (50입)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "originalWon": 13980,
+      "saleWon": 9980,
+      "detailTail": "13,980원->9,980원 신세계포인트 적립 시 4천원 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 4천원 할인"
+      ],
+      "category": "beverage_snack"
+    },
+    {
+      "id": "cc5d731ba0770810",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "사조참치 100g 5종 (살코기/고추/야채/불닭/불닭마요)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 6480,
+      "detailTail": "3개 골라담기 6,480원",
+      "promoHighlights": [
+        "3개 골라담기 6,480원"
+      ],
+      "category": "meat_fish",
+      "grams": 100,
+      "wonPer100g": 6480
+    },
+    {
+      "id": "579cdbcd589722e0",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "피코크 중화 계란 볶음밥 (840g, 4입)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "originalWon": 10980,
+      "saleWon": 7980,
+      "detailTail": "10,980원->7,980원 신세계포인트 적립 시 3천원 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 3천원 할인"
+      ],
+      "category": "quick_meal",
+      "grams": 840,
+      "wonPer100g": 950
+    },
+    {
+      "id": "23189274d9df0e06",
+      "mart": "emart",
+      "sheetLabel": "전단 1면",
+      "name": "샘표 진간장 금F3(1.7L)+진간장 금F3(860ml) 증정",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 11800,
+      "detailTail": "11,800원",
+      "promoHighlights": [],
+      "category": "staple"
+    },
+    {
+      "id": "22a819467b87e382",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "1+1 하나사면 하나 더! 좋은 느낌 유기농 100% 순면 에어리 생리대 (각)(중 36p/대 32p/특대 26p/수퍼롱 20p)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 16900,
+      "detailTail": "16,900원 1+1 ※교차구매 가능",
+      "promoHighlights": [],
+      "category": "other"
+    },
+    {
+      "id": "e260119c46f177b7",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "온더바디 발을 씻자 풋샴푸 3종 (각)(쿨링/레몬/자몽, 510ml)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 11900,
+      "detailTail": "11,900원 1+1 ※교차구매 가능",
+      "promoHighlights": [],
+      "category": "other"
+    },
+    {
+      "id": "51c70661562fcf20",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "페리오 토탈 7 메디컬 허브 치약 (각)(라임/바질, 100g×3)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 12900,
+      "detailTail": "12,900원 1+1 ※교차구매 가능",
+      "promoHighlights": [],
+      "category": "other",
+      "grams": 100,
+      "wonPer100g": 12900
+    },
+    {
+      "id": "7050b120141deda8",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "헤드 앤 숄더 샴푸/트리트먼트 11종 (각)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 18900,
+      "detailTail": "18,900원 1+1 ※교차구매 가능",
+      "promoHighlights": [],
+      "category": "other"
+    },
+    {
+      "id": "6deb52aeb7a1d291",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "한입 베이킹소다/과탄산소다/구연산 (각)(4kg/2kg/2kg)",
+      "periodLabel": "4.1(수) - 4.15(수)",
+      "saleWon": 14900,
+      "detailTail": "14,900원 1+1 ※교차구매 가능",
+      "promoHighlights": [],
+      "category": "other",
+      "grams": 4000,
+      "wonPer100g": 373
+    },
+    {
+      "id": "05d132ad1078ac53",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "테팔 엑스엘포스 프라이팬 6종",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "신세계포인트 적립 시 50% 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 50% 할인"
+      ],
+      "category": "other"
+    },
+    {
+      "id": "8c945bb3d439c50d",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "코맥스 보관용기 전품목 ※기획/일부품목 제외",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "신세계포인트 적립 시 50% 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 50% 할인"
+      ],
+      "category": "quick_meal"
+    },
+    {
+      "id": "c5a8f92cc799a778",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "글라스락 컵/잔 15종",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "신세계포인트 적립 시 30% 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 30% 할인"
+      ],
+      "category": "other"
+    },
+    {
+      "id": "c8e57426075efa9e",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "글래드 랩 전품목 ※기획/일부품목 제외",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "신세계포인트 적립 시 20% 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 20% 할인"
+      ],
+      "category": "other"
+    },
+    {
+      "id": "6db2cc070561bc2f",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "컬러 멀티탭 22종 (푸시탭/모던탭 컬러/라이너스) ※일부품목 제외",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "신세계포인트 적립 시 20% 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 20% 할인"
+      ],
+      "category": "other"
+    },
+    {
+      "id": "6e543a8754bf0a1c",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "DIY 캐릭터 텀블러 꾸미기 11종",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "신세계포인트 적립 시 20% 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 20% 할인"
+      ],
+      "category": "other"
+    },
+    {
+      "id": "62ad913787fca018",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "투톤 스트로우 텀블러 12종 (각)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 9980,
+      "detailTail": "9,980원",
+      "promoHighlights": [],
+      "category": "other"
+    },
+    {
+      "id": "e8591f0e3988e95f",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "보쉬 하이브리드 와이퍼 2입 기획 4종 (각)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 19990,
+      "detailTail": "19,990원",
+      "promoHighlights": [],
+      "category": "other"
+    },
+    {
+      "id": "89b748dbd84b8f7d",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "쿠쿠 6인용 IH밥솥 (CRP-DHB065FDB)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 308000,
+      "detailTail": "308,000원",
+      "promoHighlights": [],
+      "category": "other"
+    },
+    {
+      "id": "dca31859d6485457",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "신일 리모콘 선풍기 (SIF-ER14CF)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "originalWon": 89000,
+      "saleWon": 49000,
+      "detailTail": "89,000원->49,000원 신세계포인트 적립 시 4만원 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 4만원 할인"
+      ],
+      "category": "other"
+    },
+    {
+      "id": "ba5d22e0071e4038",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "샥즈 골전도 이어폰 전품목",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "10% 할인",
+      "promoHighlights": [],
+      "category": "other"
+    },
+    {
+      "id": "de2d032d5b3e6550",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "Mac M2 전품목",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "행사카드 전액 결제 시 40% 할인 이마트e/삼성/KB국민/신한/현대/우리/롯데카드 ※KB국민BC/신한BC카드 제외",
+      "promoHighlights": [
+        "행사카드 전액 결제 시 40% 할인 이마트e/삼성/KB국민/신한/현대/우리/롯데카드"
+      ],
+      "category": "other"
+    },
+    {
+      "id": "acc2c7e2ad289f31",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "플레이모빌 웨딩커플",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "originalWon": 20900,
+      "saleWon": 16720,
+      "detailTail": "20,900원->16,720원 신세계포인트 적립 시 20% 할인",
+      "promoHighlights": [
+        "신세계포인트 적립 시 20% 할인"
+      ],
+      "category": "other"
+    },
+    {
+      "id": "49a7523d73b5825f",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "세라젬/바디프렌드/코지마/브람스 안마의자",
+      "periodLabel": "4.1(수) - 4.8(수)",
+      "detailTail": "행사카드 전액 결제 시 최대 200만원 할인 이마트e/삼성/KB국민/신한/현대/우리/롯데카드 ※KB국민BC/신한BC카드 제외",
+      "promoHighlights": [
+        "행사카드 전액 결제 시 최대 200만원 할인 이마트e/삼성/KB국민/신한/현대/우리/롯데카드"
+      ],
+      "category": "other"
+    },
+    {
+      "id": "abdf957842a9a5d7",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "필립스 스팀 다리미 (DST1010/20)",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 19900,
+      "detailTail": "19,900원",
+      "promoHighlights": [],
+      "category": "other"
+    },
+    {
+      "id": "988f9af4d00d5f43",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "샌디스크 Portable SSD Extreme E61 1TB ※1인 2개 한정",
+      "periodLabel": "4.1(수) - 4.8(수)",
+      "originalWon": 319900,
+      "saleWon": 269900,
+      "detailTail": "319,900원->269,900원",
+      "promoHighlights": [],
+      "category": "other"
+    },
+    {
+      "id": "d7930a6da90ea0f3",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "갤럭시북 5 전시리즈",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "detailTail": "행사카드 전액 결제 시 5만원 할인 이마트e/삼성/KB국민/신한/현대/우리/롯데카드 ※KB국민BC/신한BC카드 제외 1백만/2백만원 이상 결제 시 삼성포인트 6만/10만 포인트 적립",
+      "promoHighlights": [
+        "행사카드 전액 결제 시 5만원 할인 이마트e/삼성/KB국민/신한/현대/우리/롯데카드"
+      ],
+      "category": "other"
+    },
+    {
+      "id": "8cd62328a7d2fedd",
+      "mart": "emart",
+      "sheetLabel": "전단 2면",
+      "name": "캐치티니핑 럭키박스",
+      "periodLabel": "4.6(월) - 4.8(수)",
+      "saleWon": 29900,
+      "detailTail": "29,900원",
+      "promoHighlights": [],
+      "category": "other"
+    }
+  ]
+}
