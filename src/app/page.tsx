@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import { CatalogSortBar } from "@/components/catalog-sort-bar";
+import { DealStatsBar } from "@/components/deal-stats-bar";
 import { LeafletMetaBar } from "@/components/leaflet-meta-bar";
 import { MartHeader } from "@/components/mart-header";
 import { NativeAdSlotPlaceholder } from "@/components/native-ad-slot-placeholder";
@@ -245,6 +246,9 @@ export default async function Home({
             <Suspense fallback={null}>
               <ScrollToProductOnQuery />
             </Suspense>
+            {filtered.length > 0 ? (
+              <DealStatsBar products={filtered} insights={insights} />
+            ) : null}
             {filtered.length === 0 ? (
               <div className="rounded-2xl border border-dashed border-zinc-300 bg-white px-6 py-12 text-center dark:border-zinc-700 dark:bg-zinc-900">
                 <p className="text-zinc-600 dark:text-zinc-400">
