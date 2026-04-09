@@ -56,6 +56,8 @@ export type CatalogQuery = {
   search: string;
   section: CatalogSection;
   sort: CatalogSort;
+  /** 공유·딥링크용 상품 id (쿼리 `item`) */
+  highlightProductId?: string;
 };
 
 export function catalogPath(query: CatalogQuery): string {
@@ -70,6 +72,8 @@ export function catalogPath(query: CatalogQuery): string {
   const qTrim = query.search.trim().slice(0, SEARCH_QUERY_MAX_LEN);
   if (qTrim) p.set("q", qTrim);
   if (query.sort !== "default") p.set("sort", query.sort);
+  const item = query.highlightProductId?.trim().slice(0, 64);
+  if (item) p.set("item", item);
   const qs = p.toString();
   return qs ? `/?${qs}` : "/";
 }
@@ -95,9 +99,27 @@ function productTextBlob(p: LeafletProduct): string {
 /** 1+1 또는 하나사면 하나 더(띄어쓰기 변형 포함) */
 export function productLooksLikeBogo(p: LeafletProduct): boolean {
   const t = productTextBlob(p);
+  if (/2\s*\+\s*1/.test(t)) return false;
   if (/1\s*\+\s*1/.test(t)) return true;
   if (/하나사면\s*하나\s*더/.test(t)) return true;
   return false;
+}
+
+/** 2+1 행사 문구 */
+export function productLooksLikeTwoPlusOne(p: LeafletProduct): boolean {
+  return /2\s*\+\s*1/.test(productTextBlob(p));
+}
+
+/** 행사카드·칠대카드 등 카드 결제 할인 힌트 */
+export function productHasCardDiscountHint(p: LeafletProduct): boolean {
+  const t = productTextBlob(p);
+  if (!t.includes("할인") && !t.includes("할인하여")) return false;
+  return (
+    t.includes("행사카드") ||
+    t.includes("칠대카드") ||
+    t.includes("카드 전액") ||
+    /(?:삼성|신한|kb|국민|현대|우리|롯데)카드/.test(t)
+  );
 }
 
 const COUNT_KEYS: ("all" | ProductCategory)[] = [

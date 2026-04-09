@@ -1,9 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
+import { CatalogSortBar } from "@/components/catalog-sort-bar";
 import { LeafletMetaBar } from "@/components/leaflet-meta-bar";
 import { MartHeader } from "@/components/mart-header";
+import { NativeAdSlotPlaceholder } from "@/components/native-ad-slot-placeholder";
 import { ProductCard } from "@/components/product-card";
+import { ScrollToProductOnQuery } from "@/components/scroll-to-product-on-query";
 import { ScrollToTopFab } from "@/components/scroll-to-top-fab";
 import { SidebarFilterPanels } from "@/components/sidebar-filter-panels";
 import { TopBarShell } from "@/components/top-bar-shell";
@@ -19,6 +23,7 @@ import {
   buildDealFilterCounts,
   catalogPath,
   filterLeafletProducts,
+  type CatalogQuery,
   parseCatalogSort,
   parseDealFilterParams,
   parseSearchFromParams,
@@ -56,6 +61,51 @@ function parseCategory(
 
 function parseMart(raw: string | undefined): MartId {
   return raw === "homeplus" ? "homeplus" : "emart";
+}
+
+function koreanWeekLabelOfMonth(d: Date): string {
+  const month = d.getMonth() + 1;
+  const day = d.getDate();
+  const weekOfMonth = Math.min(Math.max(1, Math.ceil(day / 7)), 5);
+  const words = ["첫", "둘", "셋", "넷", "다섯"];
+  return `${month}월 ${words[weekOfMonth - 1]}주차`;
+}
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ mart?: string }>;
+}): Promise<Metadata> {
+  const sp = await searchParams;
+  const mart = parseMart(sp.mart);
+  const martName = mart === "emart" ? "이마트" : "홈플러스";
+  const wk = koreanWeekLabelOfMonth(new Date());
+  const title = `[${wk}] ${martName} 전단 할인 품목 요약 | MartScan`;
+  const description = `${wk} ${martName} 전단 기준 할인 상품·100g당 가격 비교. 조건부 할인·1+1·카드행사를 한눈에 정리합니다.`;
+  return {
+    title,
+    description,
+    keywords: [
+      "마트 전단",
+      "할인",
+      martName,
+      wk,
+      "100g당 가격",
+      "1+1",
+      "MartScan",
+    ],
+    openGraph: {
+      title,
+      description,
+      locale: "ko_KR",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
 }
 
 export default async function Home({
@@ -139,6 +189,15 @@ export default async function Home({
     dealCounts,
   };
 
+  const catalogQuery: CatalogQuery = {
+    mart,
+    section,
+    category,
+    deal,
+    search,
+    sort,
+  };
+
   return (
     <div className="flex min-h-full flex-col bg-zinc-50 dark:bg-zinc-950">
       <MartHeader />
@@ -178,6 +237,9 @@ export default async function Home({
             error={result.error}
           />
           <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-24 pt-2 md:pb-16">
+            <Suspense fallback={null}>
+              <ScrollToProductOnQuery />
+            </Suspense>
             {filtered.length === 0 ? (
               <div className="rounded-2xl border border-dashed border-zinc-300 bg-white px-6 py-12 text-center dark:border-zinc-700 dark:bg-zinc-900">
                 <p className="text-zinc-600 dark:text-zinc-400">
@@ -201,13 +263,27 @@ export default async function Home({
                 </p>
               </div>
             ) : (
-              <ul className="grid list-none grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {filtered.map((p) => (
-                  <li key={p.id} className="min-w-0">
-                    <ProductCard product={p} insights={insights.get(p.id)} />
-                  </li>
-                ))}
-              </ul>
+              <>
+                <CatalogSortBar query={catalogQuery} />
+                <ul className="grid list-none grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                  {filtered.flatMap((p, i) => {
+                    const cells = [
+                      <li key={p.id} className="min-w-0">
+                        <ProductCard product={p} insights={insights.get(p.id)} />
+                      </li>,
+                    ];
+                    if ((i + 1) % 10 === 0) {
+                      cells.push(
+                        <NativeAdSlotPlaceholder
+                          key={`ad-slot-${i}`}
+                          afterIndex={i + 1}
+                        />,
+                      );
+                    }
+                    return cells;
+                  })}
+                </ul>
+              </>
             )}
             <footer className="mt-12 border-t border-zinc-200 pt-8 text-center text-xs leading-relaxed text-zinc-500 dark:border-zinc-800 dark:text-zinc-500">
               <p>

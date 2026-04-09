@@ -53,9 +53,13 @@ export function MidnightLeafletRefresh() {
   }, [router]);
 
   return (
-    <p className="mt-3 text-xs font-medium text-emerald-200/90 sm:text-sm">
-      <span className="rounded-md bg-emerald-950/40 px-2 py-0.5 text-emerald-100/95 ring-1 ring-emerald-700/30">
-        매일 0시에 전단 광고를 다시 조회합니다
+    <p className="text-xs font-medium leading-snug text-emerald-200/95 sm:text-sm">
+      <span className="inline-flex items-center gap-1.5 rounded-xl bg-black/20 px-3 py-2 text-emerald-50/95 ring-1 ring-white/15 backdrop-blur-sm">
+        <span
+          className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"
+          aria-hidden
+        />
+        매일 0시 전단 자동 갱신
       </span>
     </p>
   );

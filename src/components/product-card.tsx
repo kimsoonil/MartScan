@@ -1,8 +1,15 @@
 import { isPriceOnlyRetailDetail } from "@/lib/is-price-only-detail";
+import { coupangSearchUrlForProductName } from "@/lib/coupang-search-url";
+import {
+  productHasCardDiscountHint,
+  productLooksLikeBogo,
+  productLooksLikeTwoPlusOne,
+} from "@/lib/filter-products";
 import type { ProductCardInsights } from "@/lib/product-insights";
-import { productLooksLikeBogo } from "@/lib/filter-products";
 import { effectiveWonPer100g } from "@/lib/unit-price-helpers";
 import type { LeafletProduct, ProductCategory, MartId } from "@/types/leaflet";
+
+import { ProductShareButton } from "@/components/product-share-button";
 
 const BADGE: Record<ProductCategory, string> = {
   meat_fish: "정육·수산",
@@ -84,6 +91,8 @@ export function ProductCard({
   const unit = effectiveWonPer100g(product);
   const hasUnitLabel = unit != null;
   const isBogo = productLooksLikeBogo(product);
+  const isTwoPlusOne = productLooksLikeTwoPlusOne(product);
+  const hasCardHint = productHasCardDiscountHint(product);
 
   const detailLines = product.detailLines ?? [];
   const showHomeplusDetails =
@@ -99,30 +108,48 @@ export function ProductCard({
 
   const emoji = CAT_EMOJI[product.category];
   const grad = CAT_IMAGE_GRADIENT[product.category];
+  const coupangHref = coupangSearchUrlForProductName(product.name);
 
   return (
-    <article className="group flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-zinc-100 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900">
-      <div className="relative w-full shrink-0 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+    <article
+      id={`product-${product.id}`}
+      className="group flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-zinc-100 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900"
+    >
+      <div className="relative aspect-[3/2] w-full shrink-0 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
         <div
           className={`absolute inset-0 bg-gradient-to-br ${grad}`}
           aria-hidden
         />
-        <div className="relative flex h-full w-full flex-col items-center justify-center px-3 py-2 m-h-[150px]">
+        <div className="relative flex h-full w-full flex-col items-center justify-center object-contain px-3 py-4">
           <span className="select-none text-5xl leading-none drop-shadow-sm sm:text-6xl">
             {emoji}
           </span>
-          <span className="mt-1 max-w-full truncate rounded-full bg-white/80 ㅕㅑ-2 py-0.5 text-[10px] font-medium text-zinc-600 backdrop-blur-sm dark:bg-zinc-900/70 dark:text-zinc-300">
+          <span className="mt-2 max-w-full truncate rounded-full bg-white/85 px-2 py-0.5 text-[10px] font-medium text-zinc-600 backdrop-blur-sm dark:bg-zinc-900/70 dark:text-zinc-300">
             {MART_BADGE[mart]} · {product.sheetLabel}
           </span>
         </div>
+
+        <div className="absolute left-2 top-2 z-10 flex max-w-[min(72%,11rem)] flex-col items-start gap-1">
+          {isTwoPlusOne ? (
+            <span className="rounded-md bg-fuchsia-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-md">
+              2+1
+            </span>
+          ) : null}
+          {isBogo ? (
+            <span className="rounded-md bg-violet-600 px-2 py-0.5 text-[10px] font-bold text-white shadow-md">
+              1+1
+            </span>
+          ) : null}
+          {hasCardHint ? (
+            <span className="rounded-md bg-sky-700 px-2 py-0.5 text-[10px] font-bold text-white shadow-md dark:bg-sky-600">
+              카드할인
+            </span>
+          ) : null}
+        </div>
+
         {pct != null && pct > 0 ? (
-          <span className="absolute right-2 top-2 rounded-md bg-red-600 px-2 py-1 text-xs font-bold text-white shadow-md">
+          <span className="absolute right-2 top-2 z-10 rounded-md bg-red-600 px-2 py-1 text-xs font-black text-white shadow-md">
             {pct}%↓
-          </span>
-        ) : null}
-        {isBogo ? (
-          <span className="absolute left-2 top-2 rounded-md bg-violet-600 px-2 py-1 text-[11px] font-bold text-white shadow-md">
-            1+1
           </span>
         ) : null}
       </div>
@@ -135,44 +162,19 @@ export function ProductCard({
           </span>
         </div>
 
-        <div className="mt-1.5 flex min-h-[1.25rem] flex-wrap gap-1">
-          {ins.megaDeal ? (
-            <span className="rounded bg-gradient-to-r from-rose-600 to-amber-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
-              역대급
-            </span>
-          ) : null}
-          {!ins.megaDeal && ins.crossMartWin ? (
-            <span className="rounded bg-sky-100 px-1.5 py-0.5 text-[10px] font-semibold text-sky-900 dark:bg-sky-950/80 dark:text-sky-200">
-              타마트↓
-            </span>
-          ) : null}
-          {!ins.megaDeal && ins.categoryCheapestUnit ? (
-            <span className="rounded bg-teal-100 px-1.5 py-0.5 text-[10px] font-semibold text-teal-900 dark:bg-teal-950/80 dark:text-teal-200">
-              카테고리 최저단가
-            </span>
-          ) : null}
-        </div>
-
-        <h2 className="mt-1 line-clamp-2 min-h-[2.75rem] text-base font-bold leading-snug tracking-tight text-zinc-900 dark:text-zinc-50">
-          {product.name}
-        </h2>
-        <p className="mt-0.5 text-[11px] text-zinc-400 dark:text-zinc-500">
-          행사 {product.periodLabel}
-        </p>
-
-        <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 border-t border-zinc-100 pt-3 dark:border-zinc-800">
+        <div className="mt-2 border-b border-zinc-100 pb-3 dark:border-zinc-800">
           {price != null ? (
-            <>
+            <div className="flex flex-wrap items-end gap-x-2 gap-y-1">
               {hasDiscount ? (
-                <span className="text-xs text-zinc-400 line-through dark:text-zinc-500">
+                <span className="mb-0.5 text-xs font-medium text-zinc-400 line-through dark:text-zinc-500">
                   {formatWon(product.originalWon!)}
                 </span>
               ) : null}
-              <span className="flex items-center gap-1 text-xl font-extrabold tracking-tight text-red-600 dark:text-red-400">
+              <span className="text-[1.65rem] font-black leading-none tracking-tight text-red-600 sm:text-[1.85rem] dark:text-red-400">
                 {formatWon(product.saleWon ?? product.originalWon!)}
                 {ins.cheaperVsHistory ? (
                   <span
-                    className="text-base font-bold text-emerald-600 dark:text-emerald-400"
+                    className="ml-1 align-middle text-lg font-bold text-emerald-600 dark:text-emerald-400"
                     title="기록된 최저 단가보다 더 저렴하게 관측됨"
                     aria-label="기록 대비 가격 하락"
                   >
@@ -181,23 +183,64 @@ export function ProductCard({
                 ) : null}
               </span>
               {hasUnitLabel ? (
-                <span className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500">
-                  · 100g당 {formatWon(unit)}
+                <span className="mb-1 text-[11px] font-semibold text-zinc-500 dark:text-zinc-400">
+                  100g {formatWon(unit)}
                 </span>
               ) : null}
-            </>
+            </div>
           ) : (
-            <span className="text-sm font-semibold text-amber-700 dark:text-amber-400">
+            <span className="text-base font-black text-amber-700 dark:text-amber-400">
               가격은 전단·매장에서 확인
             </span>
           )}
         </div>
+
+        <div className="mt-1.5 flex min-h-[1.25rem] flex-wrap gap-1">
+          {ins.megaDeal ? (
+            <span className="rounded-md bg-gradient-to-r from-rose-600 to-amber-500 px-2 py-0.5 text-[10px] font-bold text-white shadow-sm">
+              역대급
+            </span>
+          ) : null}
+          {!ins.megaDeal && ins.crossMartWin ? (
+            <span className="rounded-md bg-sky-100 px-2 py-0.5 text-[10px] font-semibold text-sky-900 dark:bg-sky-950/80 dark:text-sky-200">
+              타마트↓
+            </span>
+          ) : null}
+          {!ins.megaDeal && ins.categoryCheapestUnit ? (
+            <span className="rounded-md bg-teal-100 px-2 py-0.5 text-[10px] font-semibold text-teal-900 dark:bg-teal-950/80 dark:text-teal-200">
+              카테고리 최저단가
+            </span>
+          ) : null}
+        </div>
+
+        <h2 className="mt-1.5 line-clamp-2 text-sm font-semibold leading-snug tracking-tight text-zinc-800 dark:text-zinc-200 sm:text-[0.9375rem]">
+          {product.name}
+        </h2>
+        <p className="mt-1 text-[11px] text-zinc-400 dark:text-zinc-500">
+          행사 {product.periodLabel}
+        </p>
 
         {hasUnitLabel && price != null ? (
           <p className="mt-1 text-[10px] leading-relaxed text-zinc-400 dark:text-zinc-500">
             중량·가격은 전단 문구 기준 추정입니다. 장바구니 전 매장에서 확인하세요.
           </p>
         ) : null}
+
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <ProductShareButton
+            productId={product.id}
+            productName={product.name}
+            martLabel={MART_BADGE[mart]}
+          />
+          <a
+            href={coupangHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-orange-200/90 bg-orange-50/90 px-2.5 py-1 text-[11px] font-semibold text-orange-900 transition-colors hover:bg-orange-100 dark:border-orange-900/50 dark:bg-orange-950/40 dark:text-orange-100 dark:hover:bg-orange-950/70"
+          >
+            쿠팡 최저가
+          </a>
+        </div>
 
         {promos.length > 0 ? (
           <ul className="mt-2 list-none space-y-1 rounded-lg border border-amber-200/80 bg-amber-50/90 px-2.5 py-2 dark:border-amber-900/40 dark:bg-amber-950/30">

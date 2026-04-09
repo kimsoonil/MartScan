@@ -1,0 +1,19 @@
+{
+  "name": "MartScan — 오늘의 마트 할인",
+  "short_name": "MartScan",
+  "description": "대형마트 전단 할인 품목·단위당 가격 비교",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#065f46",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon",
+      "purpose": "any"
+    }
+  ]
+}

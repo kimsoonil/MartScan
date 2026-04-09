@@ -125,6 +125,64 @@ export function SidebarFilterPanels({
         </p>
       </div>
 
+      <section>
+        <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
+          할인 · 1+1
+        </h2>
+        <p className="mb-1 text-[11px] text-zinc-500">할인 키워드</p>
+        <ul className="mb-3 flex flex-col gap-1">
+          <li>
+            <Link
+              href={catalogPath({
+                ...base,
+                deal: { ...deal, discountKeyword: "all" },
+              })}
+              className={navBtn(deal.discountKeyword === "all", "rose")}
+            >
+              전체
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={catalogPath({
+                ...base,
+                deal: { ...deal, discountKeyword: "only" },
+              })}
+              className={navBtn(deal.discountKeyword === "only", "rose")}
+            >
+              할인 문구만
+              {dealCounts.discountText > 0 ? ` (${dealCounts.discountText})` : ""}
+            </Link>
+          </li>
+        </ul>
+        <p className="mb-1 text-[11px] text-zinc-500">1+1 행사</p>
+        <ul className="flex flex-col gap-1">
+          <li>
+            <Link
+              href={catalogPath({
+                ...base,
+                deal: { ...deal, promo: "all" },
+              })}
+              className={navBtn(deal.promo === "all", "violet")}
+            >
+              전체
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={catalogPath({
+                ...base,
+                deal: { ...deal, promo: "bogo" },
+              })}
+              className={navBtn(deal.promo === "bogo", "violet")}
+            >
+              1+1
+              {dealCounts.bogo > 0 ? ` (${dealCounts.bogo})` : ""}
+            </Link>
+          </li>
+        </ul>
+      </section>
+
       <div>
         <QuickSearchChips base={catalogQuery} />
       </div>
@@ -201,64 +259,6 @@ export function SidebarFilterPanels({
               </li>
             );
           })}
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
-          할인 · 1+1
-        </h2>
-        <p className="mb-1 text-[11px] text-zinc-500">할인 키워드</p>
-        <ul className="mb-3 flex flex-col gap-1">
-          <li>
-            <Link
-              href={catalogPath({
-                ...base,
-                deal: { ...deal, discountKeyword: "all" },
-              })}
-              className={navBtn(deal.discountKeyword === "all", "rose")}
-            >
-              전체
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={catalogPath({
-                ...base,
-                deal: { ...deal, discountKeyword: "only" },
-              })}
-              className={navBtn(deal.discountKeyword === "only", "rose")}
-            >
-              할인 문구만
-              {dealCounts.discountText > 0 ? ` (${dealCounts.discountText})` : ""}
-            </Link>
-          </li>
-        </ul>
-        <p className="mb-1 text-[11px] text-zinc-500">1+1 행사</p>
-        <ul className="flex flex-col gap-1">
-          <li>
-            <Link
-              href={catalogPath({
-                ...base,
-                deal: { ...deal, promo: "all" },
-              })}
-              className={navBtn(deal.promo === "all", "violet")}
-            >
-              전체
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={catalogPath({
-                ...base,
-                deal: { ...deal, promo: "bogo" },
-              })}
-              className={navBtn(deal.promo === "bogo", "violet")}
-            >
-              1+1
-              {dealCounts.bogo > 0 ? ` (${dealCounts.bogo})` : ""}
-            </Link>
-          </li>
         </ul>
       </section>
 

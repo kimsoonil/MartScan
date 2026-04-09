@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,9 +13,30 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MartScan — 오늘의 마트 할인",
+  title: {
+    default: "MartScan — 오늘의 마트 할인",
+    template: "%s",
+  },
   description:
     "대형마트 전단을 상품 리스트로 정리하고, 조건부 할인 문구와 단위당 가격 비교를 제공합니다.",
+  manifest: "/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "MartScan",
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+  ],
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
