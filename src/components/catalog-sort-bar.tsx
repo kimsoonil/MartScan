@@ -14,12 +14,20 @@ const SORT_CHIPS: { id: CatalogSort; label: string }[] = [
 
 type Props = {
   query: CatalogQuery;
+  /** 상단 스트립 안에 넣을 때: 위쪽 구분선만 사용 */
+  variant?: "standalone" | "strip";
 };
 
-export function CatalogSortBar({ query }: Props) {
+export function CatalogSortBar({ query, variant = "standalone" }: Props) {
+  const strip = variant === "strip";
+
   return (
     <div
-      className="mb-3 flex flex-wrap items-center gap-2 border-b border-zinc-200/90 pb-3 dark:border-zinc-800"
+      className={
+        strip
+          ? "mt-3 flex flex-wrap items-center gap-2 border-t border-zinc-200/90 pt-3 dark:border-zinc-800"
+          : "mb-3 flex flex-wrap items-center gap-2 border-b border-zinc-200/90 pb-3 dark:border-zinc-800"
+      }
       role="navigation"
       aria-label="정렬"
     >

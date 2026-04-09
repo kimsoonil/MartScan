@@ -53,8 +53,8 @@ export function MidnightLeafletRefresh() {
   }, [router]);
 
   return (
-    <p className="text-xs font-medium leading-snug text-emerald-200/95 sm:text-sm">
-      <span className="inline-flex items-center gap-1.5 rounded-xl bg-black/20 px-3 py-2 text-emerald-50/95 ring-1 ring-white/15 backdrop-blur-sm">
+    <p className="text-[11px] font-medium leading-snug text-emerald-200/95 sm:text-xs">
+      <span className="inline-flex items-center gap-1.5 rounded-lg bg-black/20 px-2.5 py-1.5 text-emerald-50/95 ring-1 ring-white/15 backdrop-blur-sm sm:rounded-xl sm:px-3 sm:py-2">
         <span
           className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"
           aria-hidden

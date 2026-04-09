@@ -14,30 +14,30 @@ export function MartHeader() {
         }}
         aria-hidden
       />
-      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div className="relative mx-auto max-w-7xl px-4 py-4 sm:px-6 sm:py-5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <div className="min-w-0 max-w-2xl">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5 sm:gap-3">
               <span
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-xl shadow-inner ring-1 ring-white/20 backdrop-blur-sm"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/10 text-lg shadow-inner ring-1 ring-white/20 backdrop-blur-sm sm:h-10 sm:w-10 sm:text-xl"
                 aria-hidden
               >
                 🛒
               </span>
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-300/95">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-300/95 sm:text-[11px]">
                   MartScan
                 </p>
-                <h1 className="mt-0.5 text-2xl font-bold leading-tight tracking-tight sm:text-3xl md:text-4xl">
+                <h1 className="mt-0.5 text-xl font-bold leading-tight tracking-tight sm:text-2xl md:text-3xl">
                   오늘의 마트정보
                 </h1>
               </div>
             </div>
-            <p className="mt-4 text-pretty text-sm leading-relaxed text-emerald-100/88 sm:text-base">
+            <p className="mt-2 max-w-xl text-pretty text-xs leading-relaxed text-emerald-100/88 sm:mt-2.5 sm:text-sm">
               이마트·홈플러스 전단을 모아 할인·단위당 가격을 빠르게 비교하세요.
             </p>
           </div>
-          <div className="shrink-0 sm:pb-0.5">
+          <div className="shrink-0">
             <MidnightLeafletRefresh />
           </div>
         </div>

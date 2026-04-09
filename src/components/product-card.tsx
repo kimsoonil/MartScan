@@ -9,6 +9,7 @@ import type { ProductCardInsights } from "@/lib/product-insights";
 import { effectiveWonPer100g } from "@/lib/unit-price-helpers";
 import type { LeafletProduct, ProductCategory, MartId } from "@/types/leaflet";
 
+import { ProductDetailsDisclosure } from "@/components/product-details-disclosure";
 import { ProductShareButton } from "@/components/product-share-button";
 
 const BADGE: Record<ProductCategory, string> = {
@@ -261,26 +262,20 @@ export function ProductCard({
         ) : null}
 
         {showHomeplusDetails ? (
-          <details className="group mt-2 rounded-lg border border-zinc-200/80 bg-zinc-50/80 dark:border-zinc-700/80 dark:bg-zinc-900/50">
-            <summary className="cursor-pointer list-none px-2.5 py-2 text-[11px] font-semibold text-zinc-500 [&::-webkit-details-marker]:hidden dark:text-zinc-400">
-              상세 안내 ▾
-            </summary>
-            <ul className="list-none space-y-1.5 px-2.5 pb-2 text-xs text-zinc-700 dark:text-zinc-300">
+          <ProductDetailsDisclosure productId={product.id}>
+            <ul className="list-none space-y-1.5 text-xs text-zinc-700 dark:text-zinc-300">
               {detailLines.map((line, i) => (
                 <li key={`${product.id}-dl-${i}`}>{line}</li>
               ))}
             </ul>
-          </details>
+          </ProductDetailsDisclosure>
         ) : null}
         {showEmartDetails ? (
-          <details className="group mt-2 rounded-lg border border-zinc-200/70 bg-zinc-50/50 dark:border-zinc-700/60 dark:bg-zinc-900/40">
-            <summary className="cursor-pointer list-none px-2.5 py-2 text-[11px] font-medium text-zinc-500 [&::-webkit-details-marker]:hidden dark:text-zinc-400">
-              상세 안내 ▾
-            </summary>
-            <p className="px-2.5 pb-2 text-xs text-zinc-500 dark:text-zinc-400">
+          <ProductDetailsDisclosure productId={product.id} tone="muted">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
               {product.detailTail}
             </p>
-          </details>
+          </ProductDetailsDisclosure>
         ) : null}
       </div>
     </article>

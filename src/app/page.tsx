@@ -228,15 +228,20 @@ export default async function Home({
         </aside>
 
         <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-          <LeafletMetaBar
-            mart={result.mart}
-            source={result.source}
-            fetchedAt={result.fetchedAt}
-            totalParsed={result.products.length}
-            visibleCount={filtered.length}
-            error={result.error}
-          />
-          <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-24 pt-2 md:pb-16">
+          <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-24 pt-0 md:pb-16">
+            <div className="sticky top-14 z-30 -mx-4 mb-4 border-b border-zinc-200/90 bg-zinc-50/95 px-4 py-3 shadow-[0_1px_0_rgba(0,0,0,0.04)] backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-950/95 dark:shadow-[0_1px_0_rgba(255,255,255,0.04)] sm:top-16">
+              <LeafletMetaBar
+                mart={result.mart}
+                source={result.source}
+                fetchedAt={result.fetchedAt}
+                totalParsed={result.products.length}
+                visibleCount={filtered.length}
+                error={result.error}
+              />
+              {filtered.length > 0 ? (
+                <CatalogSortBar query={catalogQuery} variant="strip" />
+              ) : null}
+            </div>
             <Suspense fallback={null}>
               <ScrollToProductOnQuery />
             </Suspense>
@@ -263,9 +268,7 @@ export default async function Home({
                 </p>
               </div>
             ) : (
-              <>
-                <CatalogSortBar query={catalogQuery} />
-                <ul className="grid list-none grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <ul className="grid list-none grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
                   {filtered.flatMap((p, i) => {
                     const cells = [
                       <li key={p.id} className="min-w-0">
@@ -283,7 +286,6 @@ export default async function Home({
                     return cells;
                   })}
                 </ul>
-              </>
             )}
             <footer className="mt-12 border-t border-zinc-200 pt-8 text-center text-xs leading-relaxed text-zinc-500 dark:border-zinc-800 dark:text-zinc-500">
               <p>

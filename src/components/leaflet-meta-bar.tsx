@@ -13,10 +13,13 @@ type Props = {
 };
 
 const MART_LABEL: Record<MartId, string> = {
-  emart: "이마트 전단 페이지(실시간 파싱)",
-  homeplus: "홈플러스 마이홈플러스 전단(실시간 파싱)",
+  emart: "이마트 전단(실시간 파싱)",
+  homeplus: "홈플러스 전단(실시간 파싱)",
 };
 
+/**
+ * 메인 열 상단 스트립 — 전체 가로 폭 활용, 한 줄에 가깝게 정보 밀도 정리
+ */
 export function LeafletMetaBar({
   mart,
   source,
@@ -31,29 +34,31 @@ export function LeafletMetaBar({
   });
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-3">
-      <div className="flex flex-col gap-1 rounded-xl bg-zinc-100/80 px-4 py-3 text-sm text-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-300">
-        <p>
-          데이터:{" "}
-          <span className="font-medium">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+      <div className="min-w-0 flex-1 space-y-1">
+        <p className="text-xs leading-snug text-zinc-700 dark:text-zinc-300 sm:text-sm">
+          <span className="font-semibold text-zinc-500 dark:text-zinc-400">
+            데이터
+          </span>{" "}
+          <span className="font-medium text-zinc-800 dark:text-zinc-100">
             {source === "live" ? MART_LABEL[mart] : "로컬 백업 JSON"}
           </span>
           {source === "fallback" && error ? (
-            <span className="ml-2 text-amber-700 dark:text-amber-400">
-              (실시간 조회 실패: {error})
+            <span className="mt-1 block text-amber-700 dark:text-amber-400">
+              실시간 조회 실패: {error}
             </span>
           ) : null}
         </p>
-        <div className="text-sm text-zinc-600 dark:text-zinc-400">
-          <LeafletEmbedDialog
-            src={mart === "emart" ? EMART_LEAFLET_URL : HOMEPLUS_LEAFLET_URL}
-            title={mart === "emart" ? "이마트 전단" : "홈플러스 전단"}
-            buttonLabel="전단지보기"
-          />
-        </div>
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">
-          갱신 시각 {time} · 파싱 {totalParsed}건 · 현재 목록 {visibleCount}건
+        <p className="text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-400 sm:text-xs">
+          갱신 {time} · 파싱 {totalParsed}건 · 현재 목록 {visibleCount}건
         </p>
+      </div>
+      <div className="flex shrink-0 items-center gap-2">
+        <LeafletEmbedDialog
+          src={mart === "emart" ? EMART_LEAFLET_URL : HOMEPLUS_LEAFLET_URL}
+          title={mart === "emart" ? "이마트 전단" : "홈플러스 전단"}
+          buttonLabel="전단지 보기"
+        />
       </div>
     </div>
   );

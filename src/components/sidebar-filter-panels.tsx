@@ -56,7 +56,7 @@ function sectionLabel(section: CatalogSection): string {
   return CATALOG_SECTION_LABELS.find((s) => s.id === section)?.label ?? "전체";
 }
 
-function navBtn(active: boolean, tone: "emerald" | "teal" | "indigo" | "rose" | "violet") {
+function navBtn(active: boolean, tone: "emerald" | "teal" | "indigo") {
   const tones = {
     emerald: active
       ? "bg-emerald-800 text-white dark:bg-emerald-700"
@@ -65,13 +65,7 @@ function navBtn(active: boolean, tone: "emerald" | "teal" | "indigo" | "rose" | 
       ? "bg-teal-700 text-white dark:bg-teal-600"
       : "bg-zinc-100 text-zinc-800 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700",
     indigo: active
-      ? "bg-indigo-700 text-white dark:bg-indigo-600"
-      : "bg-zinc-100 text-zinc-800 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700",
-    rose: active
-      ? "bg-rose-700 text-white dark:bg-rose-600"
-      : "bg-zinc-100 text-zinc-800 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700",
-    violet: active
-      ? "bg-violet-700 text-white dark:bg-violet-600"
+      ? "bg-emerald-700 text-white dark:bg-emerald-600"
       : "bg-zinc-100 text-zinc-800 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700",
   };
   return `block w-full rounded-lg px-3 py-2 text-sm font-medium transition-colors ${tones[tone]}`;
@@ -114,6 +108,14 @@ export function SidebarFilterPanels({
     .map((id) => CATEGORY_LABELS.find((c) => c.id === id))
     .filter((x): x is (typeof CATEGORY_LABELS)[number] => x != null);
 
+  /** 키워드: 전체 | 할인 | 1+1 (상호 배타, URL에 둘 다 있으면 1+1 우선 표시) */
+  const keywordMode =
+    deal.promo === "bogo"
+      ? "bogo"
+      : deal.discountKeyword === "only"
+        ? "discount"
+        : "all";
+
   return (
     <nav className="flex flex-col gap-5" aria-label="카탈로그 필터">
       <div className="rounded-xl border border-zinc-200/80 bg-white/80 px-3 py-2.5 dark:border-zinc-700/80 dark:bg-zinc-900/50">
@@ -127,43 +129,16 @@ export function SidebarFilterPanels({
 
       <section>
         <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
-          할인 · 1+1
+          키워드
         </h2>
-        <p className="mb-1 text-[11px] text-zinc-500">할인 키워드</p>
-        <ul className="mb-3 flex flex-col gap-1">
-          <li>
-            <Link
-              href={catalogPath({
-                ...base,
-                deal: { ...deal, discountKeyword: "all" },
-              })}
-              className={navBtn(deal.discountKeyword === "all", "rose")}
-            >
-              전체
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={catalogPath({
-                ...base,
-                deal: { ...deal, discountKeyword: "only" },
-              })}
-              className={navBtn(deal.discountKeyword === "only", "rose")}
-            >
-              할인 문구만
-              {dealCounts.discountText > 0 ? ` (${dealCounts.discountText})` : ""}
-            </Link>
-          </li>
-        </ul>
-        <p className="mb-1 text-[11px] text-zinc-500">1+1 행사</p>
         <ul className="flex flex-col gap-1">
           <li>
             <Link
               href={catalogPath({
                 ...base,
-                deal: { ...deal, promo: "all" },
+                deal: { discountKeyword: "all", promo: "all" },
               })}
-              className={navBtn(deal.promo === "all", "violet")}
+              className={navBtn(keywordMode === "all", "emerald")}
             >
               전체
             </Link>
@@ -172,9 +147,21 @@ export function SidebarFilterPanels({
             <Link
               href={catalogPath({
                 ...base,
-                deal: { ...deal, promo: "bogo" },
+                deal: { discountKeyword: "only", promo: "all" },
               })}
-              className={navBtn(deal.promo === "bogo", "violet")}
+              className={navBtn(keywordMode === "discount", "emerald")}
+            >
+              할인
+              {dealCounts.discountText > 0 ? ` (${dealCounts.discountText})` : ""}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={catalogPath({
+                ...base,
+                deal: { discountKeyword: "all", promo: "bogo" },
+              })}
+              className={navBtn(keywordMode === "bogo", "emerald")}
             >
               1+1
               {dealCounts.bogo > 0 ? ` (${dealCounts.bogo})` : ""}
