@@ -1,4 +1,4 @@
-export type MartId = "emart" | "homeplus";
+export type MartId = "emart" | "homeplus" | "lottemart";
 
 export type ProductCategory =
   | "meat_fish"

@@ -7,6 +7,10 @@ export const EMART_LEAFLET_URL =
 export const HOMEPLUS_LEAFLET_URL =
   process.env.HOMEPLUS_LEAFLET_URL ?? "https://my.homeplus.co.kr/leaflet";
 
+/** 롯데마트 제타 BIG SALE(프로모션) 페이지. SSR HTML에서 상품 카드를 파싱합니다. */
+export const LOTTEMART_LEAFLET_URL =
+  process.env.LOTTEMART_LEAFLET_URL ?? "https://lottemartzetta.com/promotions";
+
 export const FETCH_HEADERS = {
   "User-Agent":
     "Mozilla/5.0 (compatible; MartScan/1.0; +https://github.com/) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",

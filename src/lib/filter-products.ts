@@ -2,24 +2,29 @@ import type { CatalogSection } from "@/lib/catalog-section";
 import { filterProductsByCatalogSection } from "@/lib/catalog-section";
 import type { LeafletProduct, MartId, ProductCategory } from "@/types/leaflet";
 
+import { isSoloPortion } from "./solo-portion";
 import { effectiveWonPer100g } from "./unit-price-helpers";
 
 export type DealFilterParams = {
   /** 본문 등에 `할인` 글자가 포함된 상품만 */
   discountKeyword: "all" | "only";
   promo: "all" | "bogo";
+  /** 1인 가구 소포장/소용량 필터 */
+  solo: boolean;
 };
 
 export function parseDealFilterParams(sp: {
   p?: string;
   disc?: string;
+  solo?: string;
 }): DealFilterParams {
   const discountKeyword =
     sp.disc === "1" || sp.disc === "true" || sp.disc === "only"
       ? "only"
       : "all";
   const promo = sp.p === "bogo" ? "bogo" : "all";
-  return { discountKeyword, promo };
+  const solo = sp.solo === "1";
+  return { discountKeyword, promo, solo };
 }
 
 const SEARCH_QUERY_MAX_LEN = 200;
@@ -69,6 +74,7 @@ export function catalogPath(query: CatalogQuery): string {
     p.set("disc", "1");
   }
   if (query.deal.promo === "bogo") p.set("p", "bogo");
+  if (query.deal.solo) p.set("solo", "1");
   const qTrim = query.search.trim().slice(0, SEARCH_QUERY_MAX_LEN);
   if (qTrim) p.set("q", qTrim);
   if (query.sort !== "default") p.set("sort", query.sort);
@@ -186,6 +192,9 @@ export function filterLeafletProducts(
   if (deal.promo === "bogo") {
     out = out.filter(productLooksLikeBogo);
   }
+  if (deal.solo) {
+    out = out.filter(isSoloPortion);
+  }
   if (search.trim()) {
     out = out.filter((p) => productMatchesSearch(p, search));
   }
@@ -195,9 +204,10 @@ export function filterLeafletProducts(
 export type DealFilterCounts = {
   discountText: number;
   bogo: number;
+  solo: number;
 };
 
-/** 현재 카테고리 기준(전체 선택 시 전 상품) 할인·BOGO 건수 */
+/** 현재 카테고리 기준(전체 선택 시 전 상품) 할인·BOGO·1인분 건수 */
 export function buildDealFilterCounts(
   products: LeafletProduct[],
   category: "all" | ProductCategory,
@@ -210,6 +220,7 @@ export function buildDealFilterCounts(
   return {
     discountText: base.filter(productContainsDiscountKeyword).length,
     bogo: base.filter(productLooksLikeBogo).length,
+    solo: base.filter(isSoloPortion).length,
   };
 }
 

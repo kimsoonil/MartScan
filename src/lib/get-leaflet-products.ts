@@ -7,6 +7,7 @@ import type { LeafletFetchResult, LeafletProduct, MartId } from "@/types/leaflet
 
 import { fetchEmartLeafletProducts } from "./fetch-emart-leaflet";
 import { fetchHomeplusLeafletProducts } from "./fetch-homeplus-leaflet";
+import { fetchLotteMartLeafletProducts } from "./fetch-lottemart-leaflet";
 import { stripHtmlFragmentToPlainText } from "./html-to-lines";
 
 function sanitizeLeafletProduct(p: LeafletProduct): LeafletProduct {
@@ -34,7 +35,11 @@ async function loadFallback(mart: MartId): Promise<{
   fetchedAt: string;
 } | null> {
   const name =
-    mart === "homeplus" ? "homeplus-fallback.json" : "leaflet-fallback.json";
+    mart === "homeplus"
+      ? "homeplus-fallback.json"
+      : mart === "lottemart"
+        ? "lottemart-fallback.json"
+        : "leaflet-fallback.json";
   const file = path.join(process.cwd(), "public", "data", name);
   try {
     const raw = await readFile(file, "utf-8");
@@ -59,7 +64,9 @@ export async function getLeafletProducts(mart: MartId): Promise<LeafletFetchResu
     const products =
       mart === "homeplus"
         ? await fetchHomeplusLeafletProducts()
-        : await fetchEmartLeafletProducts();
+        : mart === "lottemart"
+          ? await fetchLotteMartLeafletProducts()
+          : await fetchEmartLeafletProducts();
 
     if (products.length === 0) {
       throw new Error("Empty leaflet parse result");

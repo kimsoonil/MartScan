@@ -1,4 +1,4 @@
-import { EMART_LEAFLET_URL, HOMEPLUS_LEAFLET_URL } from "@/lib/constants";
+import { EMART_LEAFLET_URL, HOMEPLUS_LEAFLET_URL, LOTTEMART_LEAFLET_URL } from "@/lib/constants";
 import type { MartId } from "@/types/leaflet";
 
 import { LeafletEmbedDialog } from "./leaflet-embed-dialog";
@@ -15,6 +15,7 @@ type Props = {
 const MART_LABEL: Record<MartId, string> = {
   emart: "이마트 전단(실시간 파싱)",
   homeplus: "홈플러스 전단(실시간 파싱)",
+  lottemart: "롯데마트 행사(실시간 파싱)",
 };
 
 /**
@@ -55,8 +56,20 @@ export function LeafletMetaBar({
       </div>
       <div className="flex shrink-0 items-center gap-2">
         <LeafletEmbedDialog
-          src={mart === "emart" ? EMART_LEAFLET_URL : HOMEPLUS_LEAFLET_URL}
-          title={mart === "emart" ? "이마트 전단" : "홈플러스 전단"}
+          src={
+            mart === "emart"
+              ? EMART_LEAFLET_URL
+              : mart === "homeplus"
+                ? HOMEPLUS_LEAFLET_URL
+                : LOTTEMART_LEAFLET_URL
+          }
+          title={
+            mart === "emart"
+              ? "이마트 전단"
+              : mart === "homeplus"
+                ? "홈플러스 전단"
+                : "롯데마트 행사"
+          }
           buttonLabel="전단지 보기"
         />
       </div>
