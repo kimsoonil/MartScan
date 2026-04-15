@@ -233,7 +233,7 @@ export default async function Home({
 
       <div className="flex min-h-0 flex-1 min-w-0">
         <aside
-          className="sticky top-16 hidden h-[calc(100vh-4rem)] w-72 shrink-0 overflow-y-auto overscroll-contain border-r border-zinc-200 bg-zinc-50/90 p-4 dark:border-zinc-800 dark:bg-zinc-950/90 lg:block"
+          className="sticky top-16 hidden h-[calc(100vh-4rem)] w-[200px] shrink-0 overflow-y-auto overscroll-contain border-r border-zinc-200 bg-zinc-50/90 p-4 dark:border-zinc-800 dark:bg-zinc-950/90 lg:block"
           aria-label="필터"
         >
           <SidebarFilterPanels {...sidebarProps} />
@@ -288,14 +288,14 @@ export default async function Home({
                 </p>
               </div>
             ) : (
-              <ul className="grid list-none grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <ul className="grid list-none grid-cols-2 gap-4 sm:grid-cols-2 xl:grid-cols-4">
                   {filtered.flatMap((p, i) => {
                     const cells = [
                       <li key={p.id} className="min-w-0">
                         <ProductCard product={p} insights={insights.get(p.id)} />
                       </li>,
                     ];
-                    if ((i + 1) % 10 === 0) {
+                    if ((i + 1) % 20 === 0) {
                       cells.push(
                         <NativeAdSlotPlaceholder
                           key={`ad-slot-${i}`}
