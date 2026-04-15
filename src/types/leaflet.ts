@@ -25,6 +25,8 @@ export type LeafletProduct = {
   /** 조건부 할인·행사 문구(신세계포인트, N개 이상 구매 등) */
   promoHighlights?: string[];
   category: ProductCategory;
+  /** 이마트 전단 앱에서 파싱한 상품 이미지 URL */
+  imageUrl?: string;
   /** 파싱된 중량(g). 없으면 단위가 계산 불가 */
   grams?: number;
   /** 100g당 원가(추정) */

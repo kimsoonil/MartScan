@@ -17,6 +17,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "*.ssgcdn.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "mres.my.homeplus.co.kr",
         pathname: "/**",
       },

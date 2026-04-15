@@ -36,13 +36,20 @@ const CAT_EMOJI: Record<ProductCategory, string> = {
 };
 
 const CAT_IMAGE_GRADIENT: Record<ProductCategory, string> = {
-  meat_fish: "from-rose-200/90 via-orange-100/80 to-amber-100 dark:from-rose-950/80 dark:via-orange-950/60 dark:to-amber-950/50",
-  produce: "from-lime-200/90 via-emerald-100/80 to-green-50 dark:from-lime-950/70 dark:via-emerald-950/50 dark:to-green-950/40",
-  dairy: "from-sky-200/90 via-blue-50 to-indigo-50 dark:from-sky-950/70 dark:via-blue-950/50 dark:to-indigo-950/40",
-  quick_meal: "from-amber-200/90 via-yellow-50 to-orange-50 dark:from-amber-950/70 dark:via-yellow-950/40 dark:to-orange-950/40",
-  staple: "from-stone-200/90 via-neutral-100 to-zinc-50 dark:from-stone-800/80 dark:via-neutral-900/60 dark:to-zinc-900/50",
-  beverage_snack: "from-fuchsia-200/90 via-pink-50 to-violet-50 dark:from-fuchsia-950/60 dark:via-pink-950/40 dark:to-violet-950/40",
-  other: "from-slate-200/90 via-zinc-100 to-slate-50 dark:from-slate-800/80 dark:via-zinc-900/60 dark:to-slate-900/50",
+  meat_fish:
+    "from-rose-200/90 via-orange-100/80 to-amber-100 dark:from-rose-950/80 dark:via-orange-950/60 dark:to-amber-950/50",
+  produce:
+    "from-lime-200/90 via-emerald-100/80 to-green-50 dark:from-lime-950/70 dark:via-emerald-950/50 dark:to-green-950/40",
+  dairy:
+    "from-sky-200/90 via-blue-50 to-indigo-50 dark:from-sky-950/70 dark:via-blue-950/50 dark:to-indigo-950/40",
+  quick_meal:
+    "from-amber-200/90 via-yellow-50 to-orange-50 dark:from-amber-950/70 dark:via-yellow-950/40 dark:to-orange-950/40",
+  staple:
+    "from-stone-200/90 via-neutral-100 to-zinc-50 dark:from-stone-800/80 dark:via-neutral-900/60 dark:to-zinc-900/50",
+  beverage_snack:
+    "from-fuchsia-200/90 via-pink-50 to-violet-50 dark:from-fuchsia-950/60 dark:via-pink-950/40 dark:to-violet-950/40",
+  other:
+    "from-slate-200/90 via-zinc-100 to-slate-50 dark:from-slate-800/80 dark:via-zinc-900/60 dark:to-slate-900/50",
 };
 
 function formatWon(n: number): string {
@@ -142,14 +149,29 @@ export function ProductCard({
       ].join(" ")}
     >
       <div className="relative aspect-[3/2] w-full shrink-0 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-        {heroImage ? (
+        {product.imageUrl ? (
+          <>
+            <Image
+              src={product.imageUrl}
+              alt={product.name}
+              fill
+              className="object-contain object-center p-2"
+              sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw"
+              unoptimized
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"
+              aria-hidden
+            />
+          </>
+        ) : heroImage ? (
           <>
             <Image
               src={heroImage}
               alt=""
               fill
               className="object-cover object-center"
-              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+              sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw"
             />
             <div
               className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-black/20"
@@ -163,7 +185,7 @@ export function ProductCard({
           />
         )}
 
-        {!heroImage ? (
+        {!product.imageUrl && !heroImage ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center px-3 py-4">
             <span className="select-none text-5xl leading-none drop-shadow-sm sm:text-6xl">
               {emoji}
@@ -206,7 +228,10 @@ export function ProductCard({
         ) : null}
 
         {pct != null && pct > 0 ? (
-          <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-black/10" aria-hidden>
+          <div
+            className="absolute bottom-0 left-0 right-0 h-1.5 bg-black/10"
+            aria-hidden
+          >
             <div
               className={`h-full ${discountBarColor} transition-all`}
               style={{ width: `${Math.min(pct * 2.5, 100)}%` }}
@@ -263,24 +288,6 @@ export function ProductCard({
           )}
         </div>
 
-        <div className="mt-1.5 flex min-h-[1.25rem] flex-wrap gap-1">
-          {ins.megaDeal ? (
-            <span className="rounded-md bg-gradient-to-r from-rose-600 to-amber-500 px-2 py-0.5 text-[10px] font-bold text-white shadow-sm">
-              역대급
-            </span>
-          ) : null}
-          {!ins.megaDeal && ins.crossMartWin ? (
-            <span className="rounded-md bg-sky-100 px-2 py-0.5 text-[10px] font-semibold text-sky-900 dark:bg-sky-950/80 dark:text-sky-200">
-              타마트↓
-            </span>
-          ) : null}
-          {!ins.megaDeal && ins.categoryCheapestUnit ? (
-            <span className="rounded-md bg-teal-100 px-2 py-0.5 text-[10px] font-semibold text-teal-900 dark:bg-teal-950/80 dark:text-teal-200">
-              카테고리 최저단가
-            </span>
-          ) : null}
-        </div>
-
         <h2 className="mt-1.5 line-clamp-2 text-sm font-semibold leading-snug tracking-tight text-zinc-800 dark:text-zinc-200 sm:text-[0.9375rem]">
           {product.name}
         </h2>
@@ -290,7 +297,8 @@ export function ProductCard({
 
         {hasUnitLabel && price != null ? (
           <p className="mt-1 text-[10px] leading-relaxed text-zinc-400 dark:text-zinc-500">
-            중량·가격은 전단 문구 기준 추정입니다. 장바구니 전 매장에서 확인하세요.
+            중량·가격은 전단 문구 기준 추정입니다. 장바구니 전 매장에서
+            확인하세요.
           </p>
         ) : null}
 
