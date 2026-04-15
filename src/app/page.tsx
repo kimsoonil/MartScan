@@ -32,9 +32,11 @@ import {
 import { getLeafletProducts } from "@/lib/get-leaflet-products";
 import {
   buildProductInsights,
-  loadUnitPriceHistoryMinByKey,
+  loadUnitPriceHistory,
 } from "@/lib/product-insights";
 import type { MartId, ProductCategory } from "@/types/leaflet";
+
+const ALL_MARTS: MartId[] = ["emart", "homeplus", "lottemart"];
 
 /** 전단은 자정 재조회·태그 무효화와 맞춰 최대 하루 단위 캐시 */
 export const revalidate = 86400;
@@ -61,8 +63,16 @@ function parseCategory(
 }
 
 function parseMart(raw: string | undefined): MartId {
-  return raw === "homeplus" ? "homeplus" : "emart";
+  if (raw === "homeplus") return "homeplus";
+  if (raw === "lottemart") return "lottemart";
+  return "emart";
 }
+
+const MART_NAME: Record<MartId, string> = {
+  emart: "이마트",
+  homeplus: "홈플러스",
+  lottemart: "롯데마트",
+};
 
 function koreanWeekLabelOfMonth(d: Date): string {
   const month = d.getMonth() + 1;
@@ -79,7 +89,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const sp = await searchParams;
   const mart = parseMart(sp.mart);
-  const martName = mart === "emart" ? "이마트" : "홈플러스";
+  const martName = MART_NAME[mart];
   const wk = koreanWeekLabelOfMonth(new Date());
   const title = `[${wk}] ${martName} 전단 할인 품목 요약 | MartScan`;
   const description = `${wk} ${martName} 전단 기준 할인 상품·100g당 가격 비교. 조건부 할인·1+1·카드행사를 한눈에 정리합니다.`;
@@ -120,6 +130,7 @@ export default async function Home({
     q?: string;
     sec?: string;
     sort?: string;
+    solo?: string;
   }>;
 }) {
   const sp = await searchParams;
@@ -130,13 +141,14 @@ export default async function Home({
   const search = parseSearchFromParams(sp.q);
   const sort = parseCatalogSort(sp.sort);
 
-  const otherMart: MartId = mart === "emart" ? "homeplus" : "emart";
+  const otherMarts = ALL_MARTS.filter((m) => m !== mart);
 
-  const [result, otherResult, historyMins] = await Promise.all([
+  const [result, ...otherResults] = await Promise.all([
     getLeafletProducts(mart),
-    getLeafletProducts(otherMart),
-    loadUnitPriceHistoryMinByKey(),
+    ...otherMarts.map(getLeafletProducts),
   ]);
+  const history = await loadUnitPriceHistory();
+  const allOtherProducts = otherResults.flatMap((r) => r.products);
 
   const scoped = filterProductsByCatalogSection(result.products, section);
   const counts = buildCategoryCounts(scoped);
@@ -154,19 +166,16 @@ export default async function Home({
 
   const insights = buildProductInsights(
     result.products,
-    otherResult.products,
+    allOtherProducts,
     mart,
-    historyMins,
+    history.minByKey,
+    history.weeklyHistory,
   );
 
-  const tryOtherMartHref = catalogPath({
-    mart: otherMart,
-    section,
-    category,
-    deal,
-    search,
-    sort,
-  });
+  const tryOtherMartHrefs = otherMarts.map((m) => ({
+    mart: m,
+    href: catalogPath({ mart: m, section, category, deal, search, sort }),
+  }));
 
   const pathBase = {
     category,
@@ -178,6 +187,7 @@ export default async function Home({
 
   const emartHref = catalogPath({ ...pathBase, mart: "emart" });
   const homeplusHref = catalogPath({ ...pathBase, mart: "homeplus" });
+  const lotteMartHref = catalogPath({ ...pathBase, mart: "lottemart" });
 
   const sidebarProps = {
     mart,
@@ -213,6 +223,7 @@ export default async function Home({
         <TopBarShell
           emartHref={emartHref}
           homeplusHref={homeplusHref}
+          lotteMartHref={lotteMartHref}
           activeMart={mart}
           defaultQuery={search}
         >
@@ -263,12 +274,17 @@ export default async function Home({
                 </p>
                 <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-500">
                   찾으시는 상품이 없나요?{" "}
-                  <Link
-                    href={tryOtherMartHref}
-                    className="font-semibold text-emerald-700 underline underline-offset-2 dark:text-emerald-400"
-                  >
-                    {otherMart === "emart" ? "이마트" : "홈플러스"} 전단에서 찾아보기
-                  </Link>
+                  {tryOtherMartHrefs.map(({ mart: m, href }, i) => (
+                    <span key={m}>
+                      {i > 0 ? " · " : ""}
+                      <Link
+                        href={href}
+                        className="font-semibold text-emerald-700 underline underline-offset-2 dark:text-emerald-400"
+                      >
+                        {MART_NAME[m]} 전단에서 찾아보기
+                      </Link>
+                    </span>
+                  ))}
                 </p>
               </div>
             ) : (
@@ -311,7 +327,7 @@ export default async function Home({
                   </a>
                   을 기준으로 하세요.
                 </p>
-              ) : (
+              ) : mart === "homeplus" ? (
                 <p className="mt-3">
                   홈플러스 데이터는{" "}
                   <a
@@ -324,6 +340,20 @@ export default async function Home({
                   </a>
                   페이지의 대체텍스트를 파싱합니다. 매장·지역에 따라 전단 내용이 다를 수 있으며,
                   가격은 한글 음성 안내 문구가 많아 숫자 표기가 없을 수 있습니다.
+                </p>
+              ) : (
+                <p className="mt-3">
+                  롯데마트 데이터는{" "}
+                  <a
+                    href="https://lottemartzetta.com/promotions"
+                    className="text-emerald-700 underline underline-offset-2 dark:text-emerald-400"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    롯데마트 제타 BIG SALE
+                  </a>
+                  페이지의 상품 카드를 파싱합니다. 온라인 전용 행사가 포함될 수 있으며,
+                  오프라인 매장 가격과 다를 수 있습니다.
                 </p>
               )}
               <p className="mt-2">대량 자동 수집은 각 사이트 정책을 확인한 뒤 진행하세요.</p>

@@ -19,6 +19,7 @@ import type { MartId, ProductCategory } from "@/types/leaflet";
 const MART_LABEL: Record<MartId, string> = {
   emart: "이마트",
   homeplus: "홈플러스",
+  lottemart: "롯데마트",
 };
 
 const CATEGORY_LABEL: Record<"all" | ProductCategory, string> = {
@@ -108,13 +109,15 @@ export function SidebarFilterPanels({
     .map((id) => CATEGORY_LABELS.find((c) => c.id === id))
     .filter((x): x is (typeof CATEGORY_LABELS)[number] => x != null);
 
-  /** 키워드: 전체 | 할인 | 1+1 (상호 배타, URL에 둘 다 있으면 1+1 우선 표시) */
+  /** 키워드: 전체 | 할인 | 1+1 | 1인분 (상호 배타) */
   const keywordMode =
     deal.promo === "bogo"
       ? "bogo"
-      : deal.discountKeyword === "only"
-        ? "discount"
-        : "all";
+      : deal.solo
+        ? "solo"
+        : deal.discountKeyword === "only"
+          ? "discount"
+          : "all";
 
   return (
     <nav className="flex flex-col gap-5" aria-label="카탈로그 필터">
@@ -136,7 +139,7 @@ export function SidebarFilterPanels({
             <Link
               href={catalogPath({
                 ...base,
-                deal: { discountKeyword: "all", promo: "all" },
+                deal: { discountKeyword: "all", promo: "all", solo: false },
               })}
               className={navBtn(keywordMode === "all", "emerald")}
             >
@@ -147,7 +150,7 @@ export function SidebarFilterPanels({
             <Link
               href={catalogPath({
                 ...base,
-                deal: { discountKeyword: "only", promo: "all" },
+                deal: { discountKeyword: "only", promo: "all", solo: false },
               })}
               className={navBtn(keywordMode === "discount", "emerald")}
             >
@@ -159,12 +162,24 @@ export function SidebarFilterPanels({
             <Link
               href={catalogPath({
                 ...base,
-                deal: { discountKeyword: "all", promo: "bogo" },
+                deal: { discountKeyword: "all", promo: "bogo", solo: false },
               })}
               className={navBtn(keywordMode === "bogo", "emerald")}
             >
               1+1
               {dealCounts.bogo > 0 ? ` (${dealCounts.bogo})` : ""}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={catalogPath({
+                ...base,
+                deal: { discountKeyword: "all", promo: "all", solo: true },
+              })}
+              className={navBtn(keywordMode === "solo", "emerald")}
+            >
+              1인분
+              {dealCounts.solo > 0 ? ` (${dealCounts.solo})` : ""}
             </Link>
           </li>
         </ul>

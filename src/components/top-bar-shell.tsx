@@ -10,6 +10,7 @@ import type { MartId } from "@/types/leaflet";
 type Props = {
   emartHref: string;
   homeplusHref: string;
+  lotteMartHref: string;
   activeMart: MartId;
   defaultQuery: string;
   children: ReactNode;
@@ -21,6 +22,7 @@ const tabBase =
 export function TopBarShell({
   emartHref,
   homeplusHref,
+  lotteMartHref,
   activeMart,
   defaultQuery,
   children,
@@ -77,14 +79,19 @@ export function TopBarShell({
               >
                 홈플러스
               </Link>
-              <span
-                className={`${tabBase} cursor-not-allowed text-zinc-400/70 dark:text-zinc-600`}
-                title="롯데마트 — 데이터 연동 준비 중"
-                aria-disabled="true"
+              <Link
+                href={lotteMartHref}
+                role="tab"
+                aria-selected={activeMart === "lottemart"}
+                className={`${tabBase} ${
+                  activeMart === "lottemart"
+                    ? "bg-white text-emerald-800 shadow-sm ring-1 ring-zinc-200/80 dark:bg-zinc-800 dark:text-emerald-200 dark:ring-zinc-600/60"
+                    : "text-zinc-600 hover:bg-white/70 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/70 dark:hover:text-zinc-100"
+                }`}
               >
                 <span className="sm:hidden">롯데</span>
                 <span className="hidden sm:inline">롯데마트</span>
-              </span>
+              </Link>
             </div>
           </div>
 

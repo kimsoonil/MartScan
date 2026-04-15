@@ -5,6 +5,8 @@ import type { LeafletProduct, MartId, ProductCategory } from "@/types/leaflet";
 
 import { effectiveWonPer100g } from "./unit-price-helpers";
 
+export type WeeklyPriceEntry = { week: string; wonPer100g: number };
+
 export type ProductCardInsights = {
   /** 수집 이력·타 마트 대비 등으로 강한 할인으로 표시 */
   megaDeal: boolean;
@@ -14,12 +16,19 @@ export type ProductCardInsights = {
   categoryCheapestUnit: boolean;
   /** 기록된 최저 단가보다 더 싸게 관측됨(신저가 느낌) */
   cheaperVsHistory: boolean;
+  /** 대용량이지만 단가가 저렴해 소분 냉동 추천 */
+  freezingTip: boolean;
+  /** 주간 단가 이력 (스파크라인용, 최근 8주) */
+  priceHistory?: WeeklyPriceEntry[];
 };
 
-/** `public/data/unit-price-history.json`의 minByKey (없으면 빈 객체) */
-export async function loadUnitPriceHistoryMinByKey(): Promise<
-  Record<string, number>
-> {
+export type UnitPriceHistory = {
+  minByKey: Record<string, number>;
+  weeklyHistory: Record<string, WeeklyPriceEntry[]>;
+};
+
+/** `public/data/unit-price-history.json` 전체 로드 (minByKey + weeklyHistory) */
+export async function loadUnitPriceHistory(): Promise<UnitPriceHistory> {
   try {
     const fp = path.join(
       process.cwd(),
@@ -28,11 +37,28 @@ export async function loadUnitPriceHistoryMinByKey(): Promise<
       "unit-price-history.json",
     );
     const raw = await readFile(fp, "utf-8");
-    const j = JSON.parse(raw) as { minByKey?: Record<string, number> };
-    return j.minByKey && typeof j.minByKey === "object" ? j.minByKey : {};
+    const j = JSON.parse(raw) as {
+      minByKey?: Record<string, number>;
+      weeklyHistory?: Record<string, WeeklyPriceEntry[]>;
+    };
+    return {
+      minByKey: j.minByKey && typeof j.minByKey === "object" ? j.minByKey : {},
+      weeklyHistory:
+        j.weeklyHistory && typeof j.weeklyHistory === "object"
+          ? j.weeklyHistory
+          : {},
+    };
   } catch {
-    return {};
+    return { minByKey: {}, weeklyHistory: {} };
   }
+}
+
+/** 하위 호환용 래퍼 — minByKey만 필요한 곳 */
+export async function loadUnitPriceHistoryMinByKey(): Promise<
+  Record<string, number>
+> {
+  const h = await loadUnitPriceHistory();
+  return h.minByKey;
 }
 
 export function normalizeNameKey(name: string): string {
@@ -72,11 +98,24 @@ function minUnitInCategory(
   return min;
 }
 
+/** 소분 냉동 추천 대상인지 판단 (대용량 + 저단가 + 정육/농산) */
+const SOLO_GRAM_THRESHOLD = 500;
+function shouldShowFreezingTip(
+  p: LeafletProduct,
+  categoryCheapestUnit: boolean,
+  crossMartWin: boolean,
+): boolean {
+  if (p.grams == null || p.grams <= SOLO_GRAM_THRESHOLD) return false;
+  if (p.category !== "meat_fish" && p.category !== "produce") return false;
+  return categoryCheapestUnit || crossMartWin;
+}
+
 export function buildProductInsights(
   currentMartProducts: LeafletProduct[],
-  otherMartProducts: LeafletProduct[],
+  allOtherProducts: LeafletProduct[],
   currentMartId: MartId,
   historyMinByKey: Record<string, number>,
+  weeklyHistory?: Record<string, WeeklyPriceEntry[]>,
 ): Map<string, ProductCardInsights> {
   const out = new Map<string, ProductCardInsights>();
 
@@ -102,7 +141,7 @@ export function buildProductInsights(
 
     let crossMartWin = false;
     if (unit != null) {
-      for (const o of otherMartProducts) {
+      for (const o of allOtherProducts) {
         if (o.category !== p.category) continue;
         if (!namesLikelySame(p.name, o.name)) continue;
         const ou = effectiveWonPer100g(o);
@@ -131,11 +170,17 @@ export function buildProductInsights(
       Number.isFinite(histMin) &&
       unit < histMin;
 
+    const freezingTip = shouldShowFreezingTip(p, categoryCheapestUnit, crossMartWin);
+
+    const priceHistory = weeklyHistory?.[hk]?.slice(-8);
+
     out.set(p.id, {
       megaDeal,
       crossMartWin,
       categoryCheapestUnit,
       cheaperVsHistory,
+      freezingTip,
+      priceHistory: priceHistory && priceHistory.length >= 2 ? priceHistory : undefined,
     });
   }
 

@@ -12,6 +12,7 @@ import type { ProductCardInsights } from "@/lib/product-insights";
 import { effectiveWonPer100g } from "@/lib/unit-price-helpers";
 import type { LeafletProduct, ProductCategory, MartId } from "@/types/leaflet";
 
+import { PriceTrendModal } from "@/components/price-trend-modal";
 import { ProductDetailsDisclosure } from "@/components/product-details-disclosure";
 import { ProductShareButton } from "@/components/product-share-button";
 
@@ -59,6 +60,7 @@ function formatWon(n: number): string {
 const MART_BADGE: Record<MartId, string> = {
   emart: "이마트",
   homeplus: "홈플러스",
+  lottemart: "롯데마트",
 };
 
 const defaultInsights: ProductCardInsights = {
@@ -66,6 +68,7 @@ const defaultInsights: ProductCardInsights = {
   crossMartWin: false,
   categoryCheapestUnit: false,
   cheaperVsHistory: false,
+  freezingTip: false,
 };
 
 function discountPercent(original: number, sale: number): number | null {
@@ -280,12 +283,38 @@ export function ProductCard({
                   {formatWon(savedWon)} 절약
                 </p>
               ) : null}
+              {ins.priceHistory && ins.priceHistory.length >= 2 ? (
+                <PriceTrendModal data={ins.priceHistory} productName={product.name} />
+              ) : null}
             </>
           ) : (
             <span className="text-base font-black text-amber-700 dark:text-amber-400">
               가격은 전단·매장에서 확인
             </span>
           )}
+        </div>
+
+        <div className="mt-1.5 flex min-h-[1.25rem] flex-wrap gap-1">
+          {ins.megaDeal ? (
+            <span className="rounded-md bg-gradient-to-r from-rose-600 to-amber-500 px-2 py-0.5 text-[10px] font-bold text-white shadow-sm">
+              역대급
+            </span>
+          ) : null}
+          {!ins.megaDeal && ins.crossMartWin ? (
+            <span className="rounded-md bg-sky-100 px-2 py-0.5 text-[10px] font-semibold text-sky-900 dark:bg-sky-950/80 dark:text-sky-200">
+              타마트↓
+            </span>
+          ) : null}
+          {!ins.megaDeal && ins.categoryCheapestUnit ? (
+            <span className="rounded-md bg-teal-100 px-2 py-0.5 text-[10px] font-semibold text-teal-900 dark:bg-teal-950/80 dark:text-teal-200">
+              카테고리 최저단가
+            </span>
+          ) : null}
+          {ins.freezingTip ? (
+            <span className="rounded-md bg-sky-100 px-2 py-0.5 text-[10px] font-semibold text-sky-900 dark:bg-sky-950/80 dark:text-sky-200">
+              소분 냉동 추천
+            </span>
+          ) : null}
         </div>
 
         <h2 className="mt-1.5 line-clamp-2 text-sm font-semibold leading-snug tracking-tight text-zinc-800 dark:text-zinc-200 sm:text-[0.9375rem]">
